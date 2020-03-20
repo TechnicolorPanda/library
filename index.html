@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Library</title>
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+  <meta charset="UTF-8"/>
+</head>
+
+<link rel="stylesheet" 
+href="style.css">
+
+<body>
+
+  <div id = "container">
+    <div id = "form">
+        <label for="title">Title</label>
+        <input type="text" id="title" class="text-input" name="title" maxlength="40"><br>
+        <label for="author">Author</label>
+        <input type="text" id="author" class="text-input" name="author"maxlength="40"><br>
+        <label for="pages">Pages</label>
+        <input type="number" id="pages" name="pages" min="1" max="9999"><br>
+        <label for="read">Read?</label>
+        <input type="checkbox" id="read" name="read">
+        <label for="read">yes</label><br>
+        <button onclick="addBookToLibrary()">Submit</button>
+    </div>
+
+    <template id = "display-template">
+        <div class="main">
+          <div id = "grid-container"></div>
+          <div id = "cell"></div>
+        </div>
+    </template>
+  </div>
+
+
+
+
+</body>
+
+<script type="text/javascript" src="library.js"></script>
+
+</html>
