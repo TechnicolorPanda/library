@@ -6,16 +6,16 @@ body {
     background-size: cover;
 }
 
-.box {
+table {
       background-color:#cccccc;
-      margin: 10%;
+      margin: 0px;
       width: 80%;
       text-align: left;
       font-size: 20px;
-      padding: 20px;
+      padding: 7px;
       position: relative;
       justify-content: space-evenly;
-      border-width:10px;
+      border:10px;
       border-color: rgb(51, 14, 2)
 }
 
@@ -23,10 +23,15 @@ body {
       width: 30%;
       margin-left: 10%;
       margin-top: 10%;
+      margin-bottom: 10%;
       color: white;
       background-color: rgb(51, 14, 2);
       padding: 20px;
       
+}
+
+td {
+    width: 50%;
 }
 
 .row {

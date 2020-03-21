@@ -1,4 +1,3 @@
-render();
 
 function Book(title, author, pages) {
     this.title = title
@@ -20,24 +19,31 @@ function addBookToLibrary() {
     let author = document.getElementById("author").value;
     let pages = document.getElementById("pages").value;
     const myBook = new Book (title, author, pages);
-    console.log([myBook]);
     console.log(myBook.title);
     console.log(myBook.author);
     console.log(myBook.pages);
+    render(myBook.title, myBook.author, myBook.pages);
 }
 
 function render() {
-    const content = document.createElement("div");
-    content.classList.add("box");
-    container.appendChild(content);
-    for(var i = 0; i < 4; i++){ 
-        var row = document.createElement("div"); 
-        row.className = "row"; 
-        for(var j = 1; j <=4; j++){ 
-            var cell = document.createElement("div"); 
-            cell.className = "gridsquare"; 
+    let x = 1;
+    const box = document.getElementById("box");
+    const table = document.createElement("table");
+    const tableBody = document.createElement("tableBody");
+    let row = table.insertRow(0);
+    //for(let i = 0; i < x; i++){ 
+        //let row = document.createElement("tr");
+        //insertRow
+        for(let j = 0; j < 3; j++){ 
+            let cell = document.createElement("td");
+            cell.innerHTML = (arguments[j]);
+            row.appendChild(cell);
         }
-        row.appendChild(cell); 
-    }
-        content.appendChild(row); 
+        tableBody.appendChild(row);
+    //}
+        table.appendChild(tableBody); 
+        box.appendChild(table);
+        table.setAttribute("border", "2");
 }
+
+
