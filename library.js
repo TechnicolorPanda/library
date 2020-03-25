@@ -1,30 +1,18 @@
 render("Title", "Author", "Pages", "Read");
 
-function Book(title, author, pages) {
+function Book(title, author, pages, read) {
     this.title = title
     this.author = author
     this.pages = pages
-    //this.read = read
-}
-
-function haveRead() {
-    let read = document.getElementById("read").value;
-    //let checkbox = document.querySelector("form");
-    //checkbox.addEventListener("change", function() {
-    //    let read = checkbox.checked ? true : false;
-        return read;
-    //});
+    this.read = read
 }
 
 function addBookToLibrary() {
     let title = document.getElementById("title").value;
     let author = document.getElementById("author").value;
     let pages = document.getElementById("pages").value;
-    let read = haveRead();
+    let read = document.getElementById("read").value;
     const myBook = new Book (title, author, pages, read);
-    console.log(myBook.title);
-    console.log(myBook.author);
-    console.log(myBook.pages);
     render(myBook.title, myBook.author, myBook.pages, myBook.read);
 }
 
@@ -42,7 +30,6 @@ function render() {
     table.appendChild(tableBody); 
     box.appendChild(table);
     table.setAttribute("border", "2");
-    //document.getElementById("title").reset();
 }
 
 
