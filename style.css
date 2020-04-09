@@ -6,9 +6,9 @@ body {
     background-size: cover;
 }
 
-table {
+#box {
       background-color:#cccccc;
-      margin: 0px;
+      margin: 10px;
       width: 80%;
       text-align: left;
       font-size: 20px;
@@ -17,6 +17,14 @@ table {
       justify-content: space-evenly;
       border:10px;
       border-color: rgb(51, 14, 2)
+}
+
+button {
+    height: 30px;
+    width: 60px;
+    border-radius: 10%;
+    background-color: rgb(100, 14, 2);
+    -webkit-text-fill-color: white;
 }
 
 #form {
@@ -31,7 +39,7 @@ table {
 }
 
 td {
-    width: 50%;
+    width: 180px;
 }
 
 .row {
@@ -54,4 +62,7 @@ td {
     justify-content: space-evenly;
 }
 
+#heading {
+    background-color: tomato;
+}
   
