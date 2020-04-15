@@ -1,11 +1,12 @@
 let rowNumber = -1;
+let myLibrary = [];
 render("Title", "Author", "Pages", "Read");
 
 function Book(title, author, pages, read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
 }
 
 function addBookToLibrary() {
@@ -13,17 +14,16 @@ function addBookToLibrary() {
     let author = document.getElementById("author").value;
     let pages = document.getElementById("pages").value;
     let read = document.getElementById("read").value;
-    const myBook = new Book (title, author, pages, read);
-    render(myBook.title, myBook.author, myBook.pages, myBook.read);
+    const myBook = new Book(title, author, pages, read);
+    myLibrary.push(myBook);
+    myLibrary.forEach(element => 
+        render(element.title, element.author, element.pages, element.read));
 }
 
 function render() {
     rowNumber++;
-    console.log(rowNumber);
     const box = document.getElementById("box");
     const table = document.getElementById("bookTable");
-    const button = document.createElement("button");
-    button.innerHTML = "remove";
     let row = table.insertRow(0);
         for(let j = 0; j < 4; j++){ 
         let cell = document.createElement("td");
@@ -32,11 +32,17 @@ function render() {
         }
     row.dataset.row = rowNumber;
         if (rowNumber > 0) {
+            const button = document.createElement("button");
+            button.innerHTML = "remove";
+            button.value =  arguments[0];
+            button.addEventListener("click", function(e) {
+                myLibrary.splice(rowNumber,1);
+                //remove book with e.target.value;
+            }, false);
             row.appendChild(button);
+            console.log(rowNumber);
+            console.log(row);
         };
-    console.log(row);
     table.appendChild(row);
     box.appendChild(table);
 }
-
-
