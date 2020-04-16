@@ -37,11 +37,21 @@ function render() {
     const box = document.getElementById("box");
     const table = document.getElementById("bookTable");
     let row = table.insertRow(0);
-        for(let j = 0; j < 4; j++){ 
-        let cell = document.createElement("td");
-        cell.innerHTML = (arguments[j]);
-        row.appendChild(cell);
+        for(let j = 0; j < 3; j++){ 
+            let cell = document.createElement("td");
+            cell.innerHTML = (arguments[j]);
+            row.appendChild(cell);
         }
+    //create read checkbox on table
+    const checkbox = document.createElement("input");
+    checkbox.setAttribute("type","checkbox");
+    if (arguments[3] === "yes"){
+        checkbox.checked = true;
+        row.appendChild(checkbox);
+    } else {
+        checkbox.checked = false;
+        row.appendChild(checkbox);
+    }
     const button = document.createElement("button");
     button.innerHTML = "remove";
     button.value =  arguments[0];
@@ -49,10 +59,6 @@ function render() {
     removeBook(button);
     table.appendChild(row);
     box.appendChild(table);
-}
-
-function readToggle() {
-
 }
 
 function clearTable() {
