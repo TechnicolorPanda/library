@@ -1,6 +1,18 @@
-let rowNumber = -1;
 let myLibrary = [];
-render("Title", "Author", "Pages", "Read");
+createHeading("Title", "Author", "Pages", "Read");
+
+function createHeading() {
+    const box = document.getElementById("box");
+    const heading = document.getElementById("heading");
+    let row = heading.insertRow(0);
+        for(let i = 0; i < 4; i++){ 
+            let cell = document.createElement("th");
+            cell.innerHTML = (arguments[i]);
+            row.appendChild(cell);
+        }
+    heading.appendChild(row);
+    box.appendChild(heading);
+}
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -16,12 +28,12 @@ function addBookToLibrary() {
     let read = document.getElementById("read").value;
     const myBook = new Book(title, author, pages, read);
     myLibrary.push(myBook);
+    clearTable();
     myLibrary.forEach(element => 
         render(element.title, element.author, element.pages, element.read));
 }
 
 function render() {
-    rowNumber++;
     const box = document.getElementById("box");
     const table = document.getElementById("bookTable");
     let row = table.insertRow(0);
@@ -30,19 +42,32 @@ function render() {
         cell.innerHTML = (arguments[j]);
         row.appendChild(cell);
         }
-    row.dataset.row = rowNumber;
-        if (rowNumber > 0) {
-            const button = document.createElement("button");
-            button.innerHTML = "remove";
-            button.value =  arguments[0];
-            button.addEventListener("click", function(e) {
-                myLibrary.splice(rowNumber,1);
-                //remove book with e.target.value;
-            }, false);
-            row.appendChild(button);
-            console.log(rowNumber);
-            console.log(row);
-        };
+    const button = document.createElement("button");
+    button.innerHTML = "remove";
+    button.value =  arguments[0];
+    row.appendChild(button);
+    removeBook(button);
     table.appendChild(row);
     box.appendChild(table);
+}
+
+function readToggle() {
+
+}
+
+function clearTable() {
+    let table = document.getElementById("bookTable");
+    table.innerHTML = "";
+}
+
+function removeBook(button) {
+    button.addEventListener("click", function(e) {
+        for (let i = myLibrary.length-1; i>=0; i--) {
+            if (myLibrary[i].title === button.value)
+                myLibrary.splice(i,1);
+        }
+        clearTable();
+        myLibrary.forEach(element => 
+            render(element.title, element.author, element.pages, element.read));
+        }, false);
 }

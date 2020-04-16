@@ -38,7 +38,7 @@ button {
       
 }
 
-td {
+td, th {
     width: 180px;
 }
 
