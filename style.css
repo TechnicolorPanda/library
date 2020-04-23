@@ -1,18 +1,29 @@
 body {
     font-family: Georgia, 'Nimbus Roman No9 L', 'Century Schoolbook L', serif;
+    font-size: 20px;
     background-image: url("library.jpeg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
 }
 
+h1 {
+    color:  rgb(172, 68, 61);
+    font-size: 72px;
+    font-style: italic;
+    text-shadow: 0 0 3px white, 0 0 3px whitesmoke;
+    width: 40%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 #box {
-      background-color:#cccccc;
+      background-color:rgb(172, 68, 61);;
       margin: 10px;
-      width: 80%;
+      width: 90%;
       text-align: left;
-      font-size: 20px;
-      padding: 7px;
+      font-size: 24px;
+      padding: 0px;
       position: relative;
       justify-content: space-evenly;
       border:10px;
@@ -22,24 +33,34 @@ body {
 button {
     height: 30px;
     width: 60px;
-    border-radius: 10%;
+    border-radius: 40%;
     background-color: rgb(100, 14, 2);
     -webkit-text-fill-color: white;
+    margin-left: 50px;
 }
 
 #form {
-      width: 30%;
+      width: 80%;
       margin-left: 10%;
-      margin-top: 10%;
-      margin-bottom: 10%;
+      margin-top: 5%;
+      margin-bottom: 5%;
       color: white;
       background-color: rgb(51, 14, 2);
       padding: 20px;
       
 }
 
-td, th {
-    width: 180px;
+td {
+    width: 250px;
+    background-color: thistle;
+    padding: 5px;
+}
+
+th {
+    width: 250px;
+    background-color: rgb(172, 68, 61);
+    padding: 5px;
+    
 }
 
 .row {
@@ -49,6 +70,17 @@ td, th {
     position: relative;
     justify-content: space-evenly;
     width: 100px;
+}
+
+.text-input {
+    padding: 5px;
+    margin:10px;
+    width: 70%;
+}
+
+input {
+    padding: 5px;
+    margin: 10px;
 }
   
 .gridsquare {
@@ -64,5 +96,9 @@ td, th {
 
 #heading {
     background-color: tomato;
+}
+
+table {
+    border-spacing: 0px;
 }
   
