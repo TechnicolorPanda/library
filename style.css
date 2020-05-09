@@ -61,7 +61,7 @@ td {
 }
 
 th {
-    width: 250px;
+    width: 300px;
     background-color: rgb(172, 68, 61);
     padding: 5px;
     
@@ -86,7 +86,7 @@ input {
     padding: 5px;
     margin: 10px;
     height: 24px;
-    width: 24px;
+    width: 50px;
 }
 
 #heading {

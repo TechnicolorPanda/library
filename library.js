@@ -31,8 +31,7 @@ function addBookToLibrary() {
     const myBook = new Book(title, author, pages, read);
 
     myLibrary.push(myBook);
-    console.table(myLibrary);
-
+    
     myLibrary.forEach(element => 
         mySavedLibrary = element);
     
@@ -66,6 +65,31 @@ function render() {
         checkbox.checked = false;
         row.appendChild(checkbox);
     }
+    checkbox.value = arguments[0];
+    console.log("checkbox = " + checkbox.checked);
+    console.log("checkbox value = " + checkbox.value);
+
+    //change read status in list
+
+    checkbox.addEventListener("click", function() {
+        for (let i = myLibrary.length-1; i>=0; i--) {
+            if (myLibrary[i].title === checkbox.value)
+                if (checkbox.checked === false) {
+                    myLibrary[i].read = "no";
+                } else {
+                    myLibrary[i].read = "yes";
+                };
+        }
+
+        myLibrary.forEach(element => 
+            mySavedLibrary = element);
+        localStorage.setItem("mySavedLibrary", JSON.stringify(myLibrary));
+
+        clearTable();
+        myLibrary.forEach(element => 
+            render(element.title, element.author, element.pages, element.read));
+    }, false);
+
     const button = document.createElement("button");
     button.innerHTML = "remove";
     button.value =  arguments[0];
@@ -86,6 +110,9 @@ function removeBook(button) {
             if (myLibrary[i].title === button.value)
                 myLibrary.splice(i,1);
         }
+        myLibrary.forEach(element => 
+            mySavedLibrary = element);
+        localStorage.setItem("mySavedLibrary", JSON.stringify(myLibrary));
         clearTable();
         myLibrary.forEach(element => 
             render(element.title, element.author, element.pages, element.read));
@@ -101,9 +128,9 @@ function testLocalStorage() {
         } else {
             retrieveStorage();
         }
-      } else {
+    } else {
         alert("Library can not be saved.")
-      }
+    }
 }
 
 function storageAvailable(type) {
