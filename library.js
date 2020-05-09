@@ -1,4 +1,5 @@
 let myLibrary = [];
+let mySavedLibrary = [];
 createHeading("Title", "Author", "Pages", "Read");
 testLocalStorage();
 
@@ -28,12 +29,15 @@ function addBookToLibrary() {
     let pages = document.getElementById("pages").value;
     let read = document.getElementById("read").value;
     const myBook = new Book(title, author, pages, read);
+
     myLibrary.push(myBook);
-    //myLibrary.forEach(element => 
-        //render(element.title, element.author, element.pages, element.read));
+    console.table(myLibrary);
+
     myLibrary.forEach(element => 
-        mySavedLibrary = JSON.stringify(element.title + "," + element.author + "," + element.pages + "," + element.read));
-        localStorage.setItem("mySavedLibrary", mySavedLibrary);
+        mySavedLibrary = element);
+    
+    localStorage.setItem("mySavedLibrary", JSON.stringify(myLibrary));
+
     clearTable();
     myLibrary.forEach(element => 
         render(element.title, element.author, element.pages, element.read));
@@ -53,6 +57,8 @@ function render() {
 
     const checkbox = document.createElement("input");
     checkbox.setAttribute("type","checkbox");
+    checkbox.setAttribute("style", "height: 20px; width: 20px; margin-top: 25px;");
+    
     if (arguments[3] === "yes"){
         checkbox.checked = true;
         row.appendChild(checkbox);
@@ -89,19 +95,14 @@ function removeBook(button) {
 //saves data to local storage
 
 function testLocalStorage() {
-    //let localStorateExists = true;
     if (storageAvailable("localStorage")) {
         if(!localStorage.getItem("mySavedLibrary")) {
-            console.log("Populate storage");
             populateStorage();
-          } else {
-            console.log("Retrieve storage");
+        } else {
             retrieveStorage();
-          }
-      }
-      else {
-        //let localStorageExists = false;
-        console.log("Library can not be saved.")
+        }
+      } else {
+        alert("Library can not be saved.")
       }
 }
 
@@ -125,27 +126,16 @@ function storageAvailable(type) {
 }
 
 function populateStorage() {
-        //myLibrary =[]
-        let storageLength = localStorage.length;
-        for(i=0; i<storageLength+1; i++){
-            const arr = ["Harry Potter", "JK Rowlings", "343","yes"];
-            myLibrary[i] = new Book(arr[0],arr[1],arr[2],arr[3]);
-        }
-
-        myLibrary.forEach(element => 
-            mySavedLibrary = JSON.stringify(element.title + "," + element.author + "," + element.pages + "," + element.read));
-            localStorage.setItem("mySavedLibrary", mySavedLibrary);
-            clearTable();
+    let mySavedLibrary = [];
+    localStorage.setItem("mySavedLibrary", mySavedLibrary);
 }
 
 function retrieveStorage() {
-    let libraryLength = localStorage.length;
-    for(i=0; i<libraryLength; i++){
-        const arr = localStorage.getItem("mySavedLibrary").split(",");
-        myLibrary[i] = new Book(arr[0],arr[1],arr[2],arr[3])
-        console.table(myLibrary);
-    }
-    myLibrary.forEach(element => 
+    const mySavedLibrary = JSON.parse(localStorage.getItem("mySavedLibrary"));
+    mySavedLibrary.forEach(element => 
+            myLibrary.push(element)); 
+    clearTable();
+    mySavedLibrary.forEach(element => 
         render(element.title, element.author, element.pages, element.read));
 }
 

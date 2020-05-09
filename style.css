@@ -18,7 +18,7 @@ h1 {
 }
 
 #box {
-      background-color:rgb(172, 68, 61);;
+      background-color:thistle;
       margin: 10px;
       width: 90%;
       text-align: left;
@@ -37,6 +37,10 @@ button {
     background-color: rgb(100, 14, 2);
     -webkit-text-fill-color: white;
     margin-left: 50px;
+}
+
+.checkbox {
+    border-color: black;
 }
 
 #form {
@@ -81,17 +85,8 @@ th {
 input {
     padding: 5px;
     margin: 10px;
-}
-  
-.gridsquare {
-    border: 2px solid #04090e; 
-    position: relative;
-    top: 0; left: 0;
-    height: 10px;
-    width: -webkit-fill-available;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    height: 24px;
+    width: 24px;
 }
 
 #heading {
@@ -101,4 +96,5 @@ input {
 table {
     border-spacing: 0px;
 }
+
   
