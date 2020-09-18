@@ -16,11 +16,13 @@ function createHeading() {
     box.appendChild(heading);
 }
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
 }
 
 function addBookToLibrary() {
@@ -66,8 +68,6 @@ function render() {
         row.appendChild(checkbox);
     }
     checkbox.value = arguments[0];
-    console.log("checkbox = " + checkbox.checked);
-    console.log("checkbox value = " + checkbox.value);
 
     //change read status in list
 
@@ -97,7 +97,6 @@ function render() {
     removeBook(button);
     table.appendChild(row);
     box.appendChild(table);
-    console.log(myLibrary);
 }
 
 function clearTable() {
