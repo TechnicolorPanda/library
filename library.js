@@ -1,10 +1,31 @@
+
+import firebase from "firebase/app";
+import "firebase/analytics";
+import "firebase/auth";
+import "firebase/firestore";
+
+// TODO: Replace the following with your app's Firebase project configuration
+// For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
+const firebaseConfig = {
+    apiKey: "AIzaSyB5IDdqSjVjuSWJC6sICckBF9JRZfEIgAk",
+    authDomain: "library-88f53.firebaseapp.com",
+    projectId: "library-88f53",
+    storageBucket: "library-88f53.appspot.com",
+    messagingSenderId: "559243886255",
+    appId: "1:559243886255:web:97fa468e26f3a0ac10de5a",
+    measurementId: "G-D7C729796T"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
 (function () {
   const myLibrary = [];
   const mySavedLibrary = [];
   createHeading('Title', 'Author', 'Pages', 'Read');
   testLocalStorage(myLibrary, mySavedLibrary);
   submitSelection(myLibrary, mySavedLibrary);
-})();
+}());
 
 function createHeading() {
   const box = document.getElementById('box');
@@ -29,11 +50,9 @@ class Book {
 }
 
 function submitSelection(myLibrary, mySavedLibrary) {
-  console.log('submit selection');
   const submitButton = document.getElementById('submit');
   submitButton.innerHTML = 'Submit';
   submitButton.addEventListener('click', () => {
-    console.log('click');
     addBookToLibrary(myLibrary, mySavedLibrary);
   });
   disableField();
@@ -48,8 +67,6 @@ function disableField() {
     submitButton.setAttribute('disabled', true);
   } else {
     submitButton.removeAttribute('disabled');
-    console.log('remove attribute');
-    //submitButton.disabled = false;
   }
 
   const inputs = document.getElementsByTagName('input');
@@ -76,8 +93,7 @@ function addBookToLibrary(myLibrary, mySavedLibrary) {
 }
 
 function renderBooks(myLibrary, mySavedLibrary) {
-  myLibrary.forEach((element) =>
-    render(element.title, element.author, element.pages, element.read));
+  myLibrary.forEach((element) => render(element.title, element.author, element.pages, element.read));
 
   function render() {
     const box = document.getElementById('box');
@@ -126,11 +142,13 @@ function renderBooks(myLibrary, mySavedLibrary) {
         localStorage.setItem('mySavedLibrary', JSON.stringify(myLibrary));
 
         clearTable();
-        myLibrary.forEach((element) => render(element.title, element.author, element.pages, element.read));
+        myLibrary.forEach((element) => render(
+          element.title, element.author, element.pages, element.read,
+        ));
       },
       false,
     );
-  
+
     // add remove button
 
     const button = document.createElement('button');
@@ -219,3 +237,5 @@ function retrieveStorage(myLibrary) {
   clearTable();
   renderBooks(myLibrary, mySavedLibrary);
 }
+
+firebase.analytics();
