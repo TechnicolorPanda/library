@@ -1,23 +1,80 @@
 
-import firebase from "firebase/app";
-import "firebase/analytics";
-import "firebase/auth";
-import "firebase/firestore";
+function signIn() {
+  console.log('sign in');
+  var provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider);
+}
 
-// TODO: Replace the following with your app's Firebase project configuration
-// For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
-const firebaseConfig = {
-    apiKey: "AIzaSyB5IDdqSjVjuSWJC6sICckBF9JRZfEIgAk",
-    authDomain: "library-88f53.firebaseapp.com",
-    projectId: "library-88f53",
-    storageBucket: "library-88f53.appspot.com",
-    messagingSenderId: "559243886255",
-    appId: "1:559243886255:web:97fa468e26f3a0ac10de5a",
-    measurementId: "G-D7C729796T"
-};
+// Signs-out of Friendly Chat.
+function signOut() {
+  // Sign out of Firebase.
+  firebase.auth().signOut();
+}
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// Initiate firebase auth.
+function initFirebaseAuth() {
+  // Listen to auth state changes.
+  firebase.auth().onAuthStateChanged(authStateObserver);
+}
+
+// Triggers when the auth state change for instance when the user signs-in or signs-out.
+function authStateObserver(user) {
+  if (user) { // User is signed in!
+    // Get the signed-in user's profile pic and name.
+    var profilePicUrl = getProfilePicUrl();
+    var userName = getUserName();
+
+    // Set the user's profile pic and name.
+    userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
+    userNameElement.textContent = userName;
+
+    // Show user's profile and sign-out button.
+    userNameElement.removeAttribute('hidden');
+    userPicElement.removeAttribute('hidden');
+    signOutButtonElement.removeAttribute('hidden');
+
+    // Hide sign-in button.
+    signInButtonElement.setAttribute('hidden', 'true');
+
+    // We save the Firebase Messaging Device token and enable notifications.
+    saveMessagingDeviceToken();
+  } else { // User is signed out!
+    // Hide user's profile and sign-out button.
+    userNameElement.setAttribute('hidden', 'true');
+    userPicElement.setAttribute('hidden', 'true');
+    signOutButtonElement.setAttribute('hidden', 'true');
+
+    // Show sign-in button.
+    signInButtonElement.removeAttribute('hidden');
+  }
+}
+
+var userPicElement = document.getElementById('user-pic');
+var userNameElement = document.getElementById('user-name');
+var signInButtonElement = document.getElementById('sign-in');
+var signOutButtonElement = document.getElementById('sign-out');
+
+// firebase.auth()
+//   .signInWithPopup(provider)
+//   .then((result) => {
+//     /** @type {firebase.auth.OAuthCredential} */
+//     var credential = result.credential;
+
+//     // This gives you a Google Access Token. You can use it to access the Google API.
+//     var token = credential.accessToken;
+//     // The signed-in user info.
+//     var user = result.user;
+//     // ...
+//   }).catch((error) => {
+//     // Handle Errors here.
+//     var errorCode = error.code;
+//     var errorMessage = error.message;
+//     // The email of the user's account used.
+//     var email = error.email;
+//     // The firebase.auth.AuthCredential type that was used.
+//     var credential = error.credential;
+//     // ...
+//   });
 
 (function () {
   const myLibrary = [];
@@ -238,4 +295,4 @@ function retrieveStorage(myLibrary) {
   renderBooks(myLibrary, mySavedLibrary);
 }
 
-firebase.analytics();
+initFirebaseAuth();

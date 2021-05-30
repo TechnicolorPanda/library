@@ -102,3 +102,38 @@ table {
 input:invalid {
   box-shadow: 0 0 5px 1px red;
 }
+
+#user-container {
+  background-color: rgb(51, 14, 2);
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  top: 0px;
+  height: 5rem;
+  width: 100%;
+  right: 0;
+  padding-left: 10px;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+#user-container #user-pic {
+  position: relative;
+  display: inline-block;
+  background-image: url('images/profile_placeholder.png');
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px;
+  background-size: 40px;
+  border-radius: 20px;
+}
+
+#user-pic {
+  top: 22px;
+}
+
+#user-container #user-name {
+  font-size: 16px;
+  line-height: 36px;
+  padding-right: 10px;
+  padding-left: 20px;
+}
