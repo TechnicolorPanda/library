@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/TechnicolorPanda/library#readme",
   "dependencies": {
-    "firebase": "^8.6.3"
+    "firebase": "^8.6.3",
+    "firestore-export-import": "^0.15.0"
   }
 }

@@ -1,80 +1,23 @@
+// Imports
+const firestoreService = require('firestore-export-import');
+const firebaseConfig = require('./config.js');
+const serviceAccount = require('./serviceAccount.json');
 
-function signIn() {
-  console.log('sign in');
-  var provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider);
-}
+// JSON To Firestore
+const jsonToFirestore = async (myLibrary) => {
+  const databaseURL = 'https://library-88f53-default-rtdb.firebaseio.com/';
+  try {
+    console.log('Initialzing Firebase');
+    await firestoreService.initializeApp(serviceAccount, firebaseConfig.databaseURL);
+    console.log('Firebase Initialized');
 
-// Signs-out of Friendly Chat.
-function signOut() {
-  // Sign out of Firebase.
-  firebase.auth().signOut();
-}
-
-// Initiate firebase auth.
-function initFirebaseAuth() {
-  // Listen to auth state changes.
-  firebase.auth().onAuthStateChanged(authStateObserver);
-}
-
-// Triggers when the auth state change for instance when the user signs-in or signs-out.
-function authStateObserver(user) {
-  if (user) { // User is signed in!
-    // Get the signed-in user's profile pic and name.
-    var profilePicUrl = getProfilePicUrl();
-    var userName = getUserName();
-
-    // Set the user's profile pic and name.
-    userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
-    userNameElement.textContent = userName;
-
-    // Show user's profile and sign-out button.
-    userNameElement.removeAttribute('hidden');
-    userPicElement.removeAttribute('hidden');
-    signOutButtonElement.removeAttribute('hidden');
-
-    // Hide sign-in button.
-    signInButtonElement.setAttribute('hidden', 'true');
-
-    // We save the Firebase Messaging Device token and enable notifications.
-    saveMessagingDeviceToken();
-  } else { // User is signed out!
-    // Hide user's profile and sign-out button.
-    userNameElement.setAttribute('hidden', 'true');
-    userPicElement.setAttribute('hidden', 'true');
-    signOutButtonElement.setAttribute('hidden', 'true');
-
-    // Show sign-in button.
-    signInButtonElement.removeAttribute('hidden');
+    await firestoreService.restore(myLibrary);
+    console.log('Upload Success');
   }
-}
-
-var userPicElement = document.getElementById('user-pic');
-var userNameElement = document.getElementById('user-name');
-var signInButtonElement = document.getElementById('sign-in');
-var signOutButtonElement = document.getElementById('sign-out');
-
-// firebase.auth()
-//   .signInWithPopup(provider)
-//   .then((result) => {
-//     /** @type {firebase.auth.OAuthCredential} */
-//     var credential = result.credential;
-
-//     // This gives you a Google Access Token. You can use it to access the Google API.
-//     var token = credential.accessToken;
-//     // The signed-in user info.
-//     var user = result.user;
-//     // ...
-//   }).catch((error) => {
-//     // Handle Errors here.
-//     var errorCode = error.code;
-//     var errorMessage = error.message;
-//     // The email of the user's account used.
-//     var email = error.email;
-//     // The firebase.auth.AuthCredential type that was used.
-//     var credential = error.credential;
-//     // ...
-//   });
+  catch (error) {
+    console.log(error);
+  }
+};
 
 (function () {
   const myLibrary = [];
@@ -143,7 +86,8 @@ function addBookToLibrary(myLibrary, mySavedLibrary) {
 
   myLibrary.forEach((element) => (mySavedLibrary = element));
 
-  localStorage.setItem('mySavedLibrary', JSON.stringify(myLibrary));
+  jsonToFirestore(JSON.stringify(myLibrary));
+  // localStorage.setItem('mySavedLibrary', JSON.stringify(myLibrary));
 
   clearTable();
   renderBooks(myLibrary, mySavedLibrary);
@@ -196,7 +140,8 @@ function renderBooks(myLibrary, mySavedLibrary) {
         }
 
         myLibrary.forEach((element) => (mySavedLibrary = element));
-        localStorage.setItem('mySavedLibrary', JSON.stringify(myLibrary));
+        jsonToFirestore(JSON.stringify(myLibrary));
+        // localStorage.setItem('mySavedLibrary', JSON.stringify(myLibrary));
 
         clearTable();
         myLibrary.forEach((element) => render(
@@ -235,7 +180,8 @@ function removeBook(button, myLibrary, mySavedLibrary) {
         if (myLibrary[i].title === button.value) myLibrary.splice(i, 1);
       }
       myLibrary.forEach((element) => (mySavedLibrary = element));
-      localStorage.setItem('mySavedLibrary', JSON.stringify(myLibrary));
+      jsonToFirestore(JSON.stringify(myLibrary));
+      // localStorage.setItem('mySavedLibrary', JSON.stringify(myLibrary));
       clearTable();
       renderBooks(myLibrary, mySavedLibrary);
     },
@@ -283,7 +229,8 @@ function storageAvailable(type) {
 // creates local storage for the first time
 
 function populateStorage(mySavedLibrary) {
-  localStorage.setItem('mySavedLibrary', mySavedLibrary);
+  jsonToFirestore(JSON.stringify(myLibrary));
+  // localStorage.setItem('mySavedLibrary', mySavedLibrary);
 }
 
 // retrieves existing local storage
